@@ -83,9 +83,21 @@ def test_next_offset_with_updates():
       Update(80),
       Update(81)
     ]
-    assert next_offset(updates) == 82
+    assert next_offset(updates=updates) == 82
     
 
+def test_next_offset_empty_with_none_is_zero():
+    """
+    Что проверяем:
+    При первом вызове без offset (offset=None) и пустом ответе
+    следующий offset должен быть 0.
+    Пример:
+    В очереди нет апдейтов.
+    Дано: мы делаем первый вызов без offset (или offset=None) и получаем пустой список.
+    Когда: считаем следующий offset.
+    Тогда: next_offset = 0.
+    """
     
-    
+    updates = []
+    assert next_offset(updates=updates, prev_offset=None) == 0  
     
