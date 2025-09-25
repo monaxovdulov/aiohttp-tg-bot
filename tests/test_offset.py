@@ -60,7 +60,7 @@ offset — идентификатор первого апдейта,
 
 Кратко: 'Обновляю offset ТОЛЬКО после успешной обработки непустого ответа'.
 """
-from src.tg_poller.state import next_offset
+from src.tg_poller.state import next_offset, Update
 
 
 def test_next_offset_with_updates():
@@ -78,13 +78,12 @@ def test_next_offset_with_updates():
     """
     
     updates = [
-        {"update_id": 78},
-        {"update_id": 79},
-        {"update_id": 80},
-        {"update_id": 81},
+      Update(78),
+      Update(79),
+      Update(80),
+      Update(81)
     ]
-    
-    assert next_offset(None, updates) == 82
+    assert next_offset(updates) == 82
     
 
     
