@@ -113,3 +113,21 @@ def test_next_offset_empty_keeps_prev():
     Тогда: next_offset = 50 (без изменений).
     """
     assert next_offset(updates=[], prev_offset=50) == 50
+
+
+def test_next_offset_monotonic_with_older_ids():
+	"""
+    Что проверяем:
+	Следующий offset не должен уменьшаться,
+    даже если пришли апдейты со старыми id.
+    Пример:
+	В очереди апдейты с id:
+	  10, 11
+	Дано: мы делаем вызов с offset=100 и получаем апдейты 10 и 11.
+	Когда: считаем следующий offset.
+	Тогда: next_offset = 100 (без изменений).
+	Зачем: на всякий случай.
+	"""
+ 
+	updates = [Update(10), Update(11)]
+	assert next_offset(updates=updates, prev_offset=100) == 100
