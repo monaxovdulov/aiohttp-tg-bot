@@ -101,3 +101,15 @@ def test_next_offset_empty_with_none_is_zero():
     updates = []
     assert next_offset(updates=updates, prev_offset=None) == 0  
     
+
+def test_next_offset_empty_keeps_prev():
+    """
+    Что проверяем:
+    При пустом ответе следующий offset должен остаться прежним.
+    Пример:
+    В очереди нет апдейтов.
+    Дано: мы делаем вызов с offset=50 и получаем пустой список.
+    Когда: считаем следующий offset.
+    Тогда: next_offset = 50 (без изменений).
+    """
+    assert next_offset(updates=[], prev_offset=50) == 50
